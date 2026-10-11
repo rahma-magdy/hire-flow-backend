@@ -100,7 +100,6 @@ The authentication, user, and job routes currently contain placeholder responses
 
 To run the project locally, configure the required environment variables in your `.env` file.
 
-Never commit your actual `.env` file, database credentials, JWT secrets, or other sensitive information to GitHub.
 
 The current environment schema recognizes the following variables:
 
