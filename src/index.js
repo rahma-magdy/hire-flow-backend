@@ -1,4 +1,4 @@
-import app from "../src/server.js";
+import app from "./server.js";
 import env from "../env.js";
 
 app.listen(env.PORT, () => {

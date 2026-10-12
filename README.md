@@ -77,19 +77,19 @@ Features and technologies described as planned are not necessarily implemented y
 
 ```text
 hire-flow/
-├── api/
-│   └── index.js
 ├── src/
 │   ├── routes/
 │   │   ├── authRoutes.js
 │   │   ├── jobsRoutes.js
 │   │   └── userRoutes.js
+│   ├── index.js
 │   └── server.js
 ├── env.js
 ├── .env
 ├── .env.example
 ├── .gitignore
-└── package.json
+├── package.json
+└── README.md
 ```
 
 The backend is being organized into separate route modules to keep the API structured and maintainable.
@@ -100,18 +100,17 @@ The authentication, user, and job routes currently contain placeholder responses
 
 To run the project locally, configure the required environment variables in your `.env` file.
 
-
 The current environment schema recognizes the following variables:
 
-| Variable | Purpose | Current Behavior |
-|---|---|---|
-| `NODE_ENV` | Node.js environment | Defaults to `development` |
-| `APP_STAGE` | Application stage | Defaults to `dev` |
-| `PORT` | Local server port | Defaults to `7000` |
-| `DATABASE_URL` | MongoDB connection string | Required |
-| `JWT_SECRET` | Secret used for JWT signing | Required; minimum 32 characters |
-| `JWT_EXPIRES_IN` | JWT expiration setting | Defaults to `7d` |
-| `BCRYPT_ROUNDS` | Password-hashing work factor | Required; between 10 and 20 |
+| Variable         | Purpose                      | Current Behavior                |
+| ---------------- | ---------------------------- | ------------------------------- |
+| `NODE_ENV`       | Node.js environment          | Defaults to `development`       |
+| `APP_STAGE`      | Application stage            | Defaults to `dev`               |
+| `PORT`           | Local server port            | Defaults to `7000`              |
+| `DATABASE_URL`   | MongoDB connection string    | Required                        |
+| `JWT_SECRET`     | Secret used for JWT signing  | Required; minimum 32 characters |
+| `JWT_EXPIRES_IN` | JWT expiration setting       | Defaults to `7d`                |
+| `BCRYPT_ROUNDS`  | Password-hashing work factor | Required; between 10 and 20     |
 
 Example configuration for local development:
 
@@ -164,4 +163,3 @@ The implementation will prioritize understanding the reasoning behind each desig
 - Current placeholder routes do not represent completed business functionality.
 - Attendance verification, payroll calculations, access control, and document privacy require careful implementation and testing before real-world use.
 - AI-assisted recruitment, if implemented, will support human review rather than replace human hiring decisions.
-
