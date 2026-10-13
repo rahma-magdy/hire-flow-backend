@@ -2,10 +2,14 @@ import express from "express";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
+import mongoose from "mongoose";
 import authRoutes from "./routes/authRoutes.js";
 import jobsRoutes from "./routes/jobsRoutes.js";
 import userRoutes from "./routes/usersRoutes.js";
 import { isTest } from "./../env.js";
+import env from "../env.js";
+
+const URL = env.DATABASE_URL;
 const app = express();
 
 const allowedOrigins = [
@@ -36,6 +40,15 @@ app.use(morgan("dev", { skip: () => isTest }));
 app.get("/health", (req, res) => {
   res.json({ message: "API is running" });
 });
+
+mongoose
+  .connect(URL)
+  .then(() => {
+    console.log("DB Connected");
+  })
+  .catch((er) => {
+    console.log(`DB Disconnected due to ${er.message}`);
+  });
 
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/jobs", jobsRoutes);
