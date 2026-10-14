@@ -7,14 +7,16 @@ const SALT_ROUNDS = env.SALT_ROUNDS;
 const register = async (req, res) => {
   const { firstName, lastName, phoneNumber, email, password } = req.body;
   try {
+    // Check if user already exists
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
       res.status(400).json({ message: "User aleardy exists" });
     }
-
+    // Hash password
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
 
+    // Create new user (role defaults to 'user')
     const user = new User({
       firstName,
       lastName,

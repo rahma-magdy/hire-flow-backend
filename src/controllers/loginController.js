@@ -1,0 +1,46 @@
+import bcrypt from "bcrypt";
+
+import User from "../models/usersModel.js";
+import env from "../../env.js";
+import jwt from "jsonwebtoken";
+
+const SECRET_KEY = env.JWT_SECRET;
+const EXPIRES_IN = env.JWT_EXPIRES_IN;
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    // Find user by email
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      res.status(401).json({ message: "invalid email or password" });
+    }
+    // Check password
+    const isMatch = await bcrypt.compare(password, user.password);
+
+    if (!isMatch) {
+      res.status(401).json({ message: "invalid email or password" });
+    }
+    // Generate token
+    const token = jwt.sign({ userId: user._id, role: user.role }, SECRET_KEY, {
+      expiresIn: EXPIRES_IN,
+    });
+
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 7 * 24 * 60 * 60 * 1000,
+      path: "/",
+    });
+
+    res.status(200).json({
+      message: "User logged in successfully",
+      data: { id: user._id, role: user.role },
+    });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+export default login;
