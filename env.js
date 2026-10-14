@@ -21,7 +21,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string(),
   JWT_SECRET: z.string().min(32, "JWT_SECRET must be 32 characters long"),
   JWT_EXPIRES_IN: z.string().default("7d"),
-  BCRYPT_ROUNDS: z.coerce.number().min(10).max(20),
+  SALT_ROUNDS: z.coerce.number().min(10).max(20),
 });
 /** @type {import("zod").infer<typeof envSchema>} */
 let env;

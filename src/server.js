@@ -3,6 +3,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
 import authRoutes from "./routes/authRoutes.js";
 import jobsRoutes from "./routes/jobsRoutes.js";
 import userRoutes from "./routes/usersRoutes.js";
@@ -34,6 +35,7 @@ app.use(
   }),
 );
 app.use(express.json());
+app.use(cookieParser());
 
 app.use(morgan("dev", { skip: () => isTest }));
 

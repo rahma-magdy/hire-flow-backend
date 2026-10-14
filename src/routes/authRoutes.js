@@ -1,10 +1,9 @@
 import { Router } from "express";
+import register from "../controllers/signupController.js";
 
 const router = Router();
 
-router.post("/register", (req, res) => {
-  res.status(200).json({ message: "user registerd " });
-});
+router.post("/register", register);
 
 router.post("/login", (req, res) => {
   res.status(201).json({ message: "user logged in" });
