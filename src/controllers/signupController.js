@@ -7,10 +7,6 @@ const SALT_ROUNDS = env.SALT_ROUNDS;
 const register = async (req, res) => {
   const { firstName, lastName, phoneNumber, email, password } = req.body;
 
-  if (!firstName || !lastName || !phoneNumber || !email || !password) {
-    return res.status(400).json({ message: "All fields are required" });
-  }
-
   try {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
