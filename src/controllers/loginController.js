@@ -1,8 +1,8 @@
-import bcrypt from "bcrypt";
+const bcrypt = require("bcrypt");
 
-import User from "../models/usersModel.js";
-import env from "../../env.js";
-import jwt from "jsonwebtoken";
+const User = require("../models/usersModel");
+const env = require("../../env");
+const jwt = require("jsonwebtoken");
 
 const SECRET_KEY = env.JWT_SECRET;
 const EXPIRES_IN = env.JWT_EXPIRES_IN;
@@ -43,4 +43,4 @@ const login = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-export default login;
+module.exports = login;

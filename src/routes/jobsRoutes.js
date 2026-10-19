@@ -1,4 +1,4 @@
-import { Router } from "express";
+const { Router } = require("express");
 const router = Router();
 
 router.get("/", (req, res) => {
@@ -20,4 +20,4 @@ router.delete("/jobId", (req, res) => {
   res.json({ message: "job deleted" });
 });
 
-export default router;
+module.exports = router;

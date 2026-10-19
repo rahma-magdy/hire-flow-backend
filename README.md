@@ -59,7 +59,7 @@ Recruitment and employee administration can be spread across separate tools, ema
 
 The project is being developed incrementally using the following technologies:
 
-- **JavaScript (ES modules)** — application code
+- **JavaScript (CommonJS)** — application code
 - **Node.js** — JavaScript runtime
 - **Express.js** — HTTP API and routing
 - **MongoDB** — database

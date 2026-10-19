@@ -1,6 +1,6 @@
-import bcrypt from "bcrypt";
-import User from "../models/usersModel.js";
-import env from "../../env.js";
+const bcrypt = require("bcrypt");
+const User = require("../models/usersModel");
+const env = require("../../env");
 
 const SALT_ROUNDS = env.SALT_ROUNDS;
 
@@ -31,4 +31,4 @@ const register = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-export default register;
+module.exports = register;

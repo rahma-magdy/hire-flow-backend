@@ -1,5 +1,5 @@
-import { env as loadEnv } from "custom-env";
-import z, { ZodError } from "zod";
+const { env: loadEnv } = require("custom-env");
+const { z, ZodError } = require("zod");
 
 process.env.APP_STAGE = process.env.APP_STAGE || "dev";
 const isProduction = process.env.APP_STAGE === "production";
@@ -43,8 +43,8 @@ try {
   throw e;
 }
 
-export const isProd = env.APP_STAGE === "production";
-export const isDev = env.APP_STAGE === "dev";
-export const isTest = env.APP_STAGE === "test";
+env.isProd = env.APP_STAGE === "production";
+env.isDev = env.APP_STAGE === "dev";
+env.isTest = env.APP_STAGE === "test";
 
-export default env;
+module.exports = env;
