@@ -55,4 +55,11 @@ mongoose
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/jobs", jobsRoutes);
 app.use("/api/v1/users", userRoutes);
+
+app.use((req, res) => {
+  res.status(404).json({
+    message: "wrong routing",
+    data: null,
+  });
+});
 module.exports = app;
