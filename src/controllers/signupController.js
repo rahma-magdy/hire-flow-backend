@@ -6,12 +6,17 @@ const SALT_ROUNDS = env.SALT_ROUNDS;
 
 const register = async (req, res) => {
   const { firstName, lastName, phoneNumber, email, password } = req.body;
+
+  if (!firstName || !lastName || !phoneNumber || !email || !password) {
+    return res.status(400).json({ message: "All fields are required" });
+  }
+
   try {
     // Check if user already exists
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
-      res.status(400).json({ message: "User aleardy exists" });
+      return res.status(409).json({ message: "User already exists" });
     }
     // Hash password
     const hashedPassword = await bcrypt.hash(password, SALT_ROUNDS);
@@ -26,9 +31,10 @@ const register = async (req, res) => {
       //   role:"admin"
     });
     await user.save();
-    res.status(201).json({ message: "User registered successfully" });
+    return res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("Registration failed:", err);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 module.exports = register;

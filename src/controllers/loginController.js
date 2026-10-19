@@ -9,18 +9,23 @@ const EXPIRES_IN = env.JWT_EXPIRES_IN;
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+
+  if (!email || !password) {
+    return res.status(400).json({ message: "Email and password are required" });
+  }
+
   try {
     // Find user by email
-    const user = await User.findOne({ email });
+    const user = await User.findOne({ email }, { __v: 0 });
 
     if (!user) {
-      res.status(401).json({ message: "invalid email or password" });
+      return res.status(401).json({ message: "invalid email or password" });
     }
     // Check password
     const isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-      res.status(401).json({ message: "invalid email or password" });
+      return res.status(401).json({ message: "invalid email or password" });
     }
     // Generate token
     const token = jwt.sign({ userId: user._id, role: user.role }, SECRET_KEY, {
@@ -35,12 +40,13 @@ const login = async (req, res) => {
       path: "/",
     });
 
-    res.status(200).json({
+    return res.status(200).json({
       message: "User logged in successfully",
       data: { id: user._id, role: user.role },
     });
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    console.error("Login failed:", err);
+    return res.status(500).json({ message: "Internal server error" });
   }
 };
 module.exports = login;
