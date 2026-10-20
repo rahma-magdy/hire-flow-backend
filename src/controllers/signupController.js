@@ -24,7 +24,7 @@ const register = async (req, res) => {
       phoneNumber,
       email,
       password: hashedPassword,
-      //   role:"admin"
+      // role: "admin",
     });
     await user.save();
     return res.status(201).json({ message: "User registered successfully" });
